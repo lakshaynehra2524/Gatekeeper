@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Morning at home",
+    "description": "Household chatter with a safety risk, a task and a repeated line.",
+    "turns": [
+      {
+        "text": "good morning",
+        "expected": "REJECT"
+      },
+      {
+        "text": "slept okay i guess",
+        "expected": "REJECT"
+      },
+      {
+        "text": "hey i think the stove is still on",
+        "expected": "FORWARD"
+      },
+      {
+        "text": "remind me to pay the electricity bill today",
+        "expected": "FORWARD"
+      },
+      {
+        "text": "the stove is still on someone check",
+        "expected": "DUPLICATE"
+      },
+      {
+        "text": "it's so hot these days",
+        "expected": "REJECT"
+      },
+      {
+        "text": "mom said the school is closed tomorrow",
+        "expected": "FORWARD"
+      }
+    ]
+  },
+  {
+    "name": "Office corridor",
+    "description": "Work small talk that turns into a decision and a commitment.",
+    "turns": [
+      {
+        "text": "did you watch the match yesterday",
+        "expected": "REJECT"
+      },
+      {
+        "text": "haha yeah what a game",
+        "expected": "REJECT"
+      },
+      {
+        "text": "okay so let's move the client meeting to thursday",
+        "expected": "FORWARD"
+      },
+      {
+        "text": "i'll send the revised deck by tonight",
+        "expected": "FORWARD"
+      },
+      {
+        "text": "cool cool",
+        "expected": "REJECT"
+      },
+      {
+        "text": "also fyi the office is shifting to the new building next month",
+        "expected": "FORWARD"
+      }
+    ]
+  },
+  {
+    "name": "Ambiguous moments",
+    "description": "Lines where a confident decision is NOT desirable \u2014 the Gatekeeper should be uncertain.",
+    "turns": [
+      {
+        "text": "we should do something about it",
+        "expected": "UNCERTAIN"
+      },
+      {
+        "text": "that might be a problem later",
+        "expected": "UNCERTAIN"
+      },
+      {
+        "text": "hmm i'm not sure that works",
+        "expected": "UNCERTAIN"
+      },
+      {
+        "text": "yeah maybe",
+        "expected": "REJECT"
+      }
+    ]
+  },
+  {
+    "name": "Evening plans",
+    "description": "Plan changes, a question, and repeated confirmations.",
+    "turns": [
+      {
+        "text": "so tired today man",
+        "expected": "REJECT"
+      },
+      {
+        "text": "do you know what time the pharmacy closes",
+        "expected": "FORWARD"
+      },
+      {
+        "text": "change of plan we're meeting at the cafe now",
+        "expected": "FORWARD"
+      },
+      {
+        "text": "we're meeting at the cafe now okay",
+        "expected": "DUPLICATE"
+      },
+      {
+        "text": "okay bye see you",
+        "expected": "REJECT"
+      }
+    ]
+  }
+]
