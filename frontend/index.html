@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edge Gatekeeper — live console</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">◧</span>
+      <div>
+        <h1>Edge Gatekeeper</h1>
+        <p class="sub">on-device gate for ambient conversation — decides what deserves deeper intelligence</p>
+      </div>
+    </div>
+    <div class="chips" id="model-chips">
+      <span class="chip">model <b id="chip-size">…</b></span>
+      <span class="chip">limit <b>25 MB</b></span>
+      <span class="chip">latency <b id="chip-latency">…</b></span>
+      <span class="chip">classes <b>6</b></span>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <label class="field">
+      <span>Replay a conversation</span>
+      <select id="scenario-select"></select>
+    </label>
+    <button id="btn-replay" class="btn primary">▶ Replay</button>
+    <button id="btn-reset" class="btn ghost">Reset session</button>
+    <div class="stats" id="session-stats">
+      <span class="stat forward">forward <b>0</b></span>
+      <span class="stat uncertain">uncertain <b>0</b></span>
+      <span class="stat duplicate">duplicate <b>0</b></span>
+      <span class="stat reject">reject <b>0</b></span>
+    </div>
+  </div>
+
+  <main class="layout">
+    <!-- transcript stream -->
+    <section class="panel stream-panel">
+      <div class="panel-head">
+        <h2>Transcript stream</h2>
+        <span class="hint">fragments arrive one by one, exactly as they would from speech-to-text</span>
+      </div>
+      <div class="stream" id="stream">
+        <div class="empty" id="empty-state">
+          Replay a conversation above, or type an utterance below —
+          the gate decides live for each fragment.
+        </div>
+      </div>
+      <form class="composer" id="composer">
+        <input id="utterance-input" type="text" autocomplete="off"
+               placeholder='say something… e.g. "remind me to call the plumber tomorrow"' />
+        <button class="btn primary" type="submit">Send</button>
+      </form>
+    </section>
+
+    <!-- decision inspector -->
+    <aside class="panel inspect-panel">
+      <div class="panel-head"><h2>Decision inspector</h2></div>
+
+      <div class="inspect-empty" id="inspect-empty">No decision yet.</div>
+
+      <div class="inspect-body hidden" id="inspect-body">
+        <div class="decision-banner" id="decision-banner">FORWARD</div>
+        <p class="inspect-text" id="inspect-text"></p>
+
+        <h3>Gate meter — p(meaningful)</h3>
+        <div class="meter">
+          <div class="meter-band"></div>
+          <div class="meter-tick t-reject"><i></i><em>0.40</em></div>
+          <div class="meter-tick t-forward"><i></i><em>0.60</em></div>
+          <div class="meter-needle" id="meter-needle"></div>
+        </div>
+        <div class="meter-legend">
+          <span>reject</span><span>uncertain</span><span>forward</span>
+        </div>
+
+        <h3>Moment type probabilities</h3>
+        <div class="bars" id="prob-bars"></div>
+
+        <h3>Why</h3>
+        <p class="reason" id="inspect-reason"></p>
+        <p class="reason dup hidden" id="inspect-dup"></p>
+        <p class="latency">decided in <b id="inspect-latency"></b> on CPU</p>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="foot">
+    AI/ML internship assignment — Edge Gatekeeper for Ambient Conversation Intelligence ·
+    all inference runs locally · model assets ≈ 0.3&nbsp;MB of the 25&nbsp;MB budget
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
