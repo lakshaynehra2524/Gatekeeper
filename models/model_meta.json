@@ -1,0 +1,30 @@
+{
+  "model": "TF-IDF + LogisticRegression",
+  "classes": [
+    "decision",
+    "info",
+    "ordinary",
+    "question",
+    "risk",
+    "task"
+  ],
+  "meaningful_classes": [
+    "decision",
+    "info",
+    "question",
+    "risk",
+    "task"
+  ],
+  "thresholds": {
+    "forward": 0.6,
+    "reject": 0.4
+  },
+  "duplicate_similarity": 0.45,
+  "train_size": 6702,
+  "test_size": 1698,
+  "macro_f1_multiclass": 0.7332,
+  "macro_f1_rules_baseline": 0.4438,
+  "false_reject_rate": 0.0021,
+  "false_forward_rate": 0.1673,
+  "latency_ms_per_utterance_laptop": 1.98
+}

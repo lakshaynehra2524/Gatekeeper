@@ -1,0 +1,14 @@
+MODEL SIZE REPORT — Edge Gatekeeper
+=============================================
+gatekeeper_classifier.joblib           0.230 MB
+model_meta.json                        0.001 MB
+tfidf_vectorizer.joblib                0.074 MB
+---------------------------------------------
+TOTAL (all model assets)               0.304 MB
+Assignment limit                      25.000 MB
+Headroom                              24.696 MB
+
+Notes:
+- No separate tokenizer/vocabulary files: the TF-IDF vocabularies
+  are embedded inside tfidf_vectorizer.joblib and counted above.
+- No quantisation or pruning was needed to meet the limit.
