@@ -1,0 +1,14 @@
+# Edge Gatekeeper — runtime + training dependencies
+# Python 3.10+ recommended
+
+# runtime (serving the gatekeeper + demo)
+fastapi>=0.110
+uvicorn>=0.29
+scikit-learn>=1.4
+joblib>=1.3
+numpy>=1.26
+
+# training / notebooks
+pandas>=2.1
+jupyter
+notebook
