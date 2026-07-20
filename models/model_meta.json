@@ -1,5 +1,5 @@
 {
-  "model": "TF-IDF + LogisticRegression",
+  "model": "TF-IDF (word 1-2 + char_wb 3-5) + LogisticRegression",
   "classes": [
     "decision",
     "info",
@@ -20,11 +20,13 @@
     "reject": 0.4
   },
   "duplicate_similarity": 0.45,
-  "train_size": 6702,
+  "train_size": 6901,
   "test_size": 1698,
-  "macro_f1_multiclass": 0.7332,
+  "macro_f1_multiclass": 0.7222,
   "macro_f1_rules_baseline": 0.4438,
-  "false_reject_rate": 0.0021,
-  "false_forward_rate": 0.1673,
-  "latency_ms_per_utterance_laptop": 1.98
+  "false_reject_rate_naive_0.5cut": 0.0021,
+  "false_forward_rate_naive_0.5cut": 0.1635,
+  "true_drop_rate_deployed_thresholds": 0.0,
+  "uncertain_absorbed_rate_deployed_thresholds": 0.0084,
+  "latency_ms_per_utterance_laptop": 1.44
 }

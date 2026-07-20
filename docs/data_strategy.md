@@ -82,6 +82,6 @@ When real data becomes available, the plan is:
 
 | file | contents |
 |---|---|
-| `data/train.csv` | 6,702 noised utterances, template-seen portion |
-| `data/test.csv` | 1,698 noised utterances, template-UNSEEN portion |
+| `data/train.csv` | 6,901 utterances: template-seen portion (6,702) + a train-only hedge/vague-referent augmentation (§4b of `notebooks/01_data_generation.ipynb`, added after the split below, see `docs/evaluation_report.md` §1/§3) |
+| `data/test.csv` | 1,698 noised utterances, template-UNSEEN portion (untouched by the augmentation above) |
 | `data/eval_scenarios.json` | 4 hand-written conversations, 22 turns with expected gate decisions |

@@ -4,9 +4,16 @@
 
 **1. Lexical, not semantic.** TF-IDF sees words, not meaning. Paraphrases with
 unusual vocabulary can slip below the forward threshold, and meaningful-
-*sounding* vague lines ("we should do something about it") get overconfident
-forwards. The scenario suite deliberately exposes this (see
-`docs/evaluation_report.md`, failure modes 1–2).
+*sounding* vague lines ("we should do something about it") can still get an
+overconfident forward even after the hedge-aware training augmentation below
+— it moved the probability but didn't durably cross the threshold. The
+scenario suite deliberately exposes this (see `docs/evaluation_report.md` §3).
+A related, newly-disclosed edge case: the same augmentation nudged one vague
+*risk* line ("that might be a problem later") from an overconfident forward
+into an overconfident reject — a narrow blind spot for referent-free risk
+phrasing (no concrete hazard noun), not a broad regression (aggregate
+true-drop rate on the held-out test set actually improved), but real. See
+item 8 below.
 
 **2. Trained on synthetic data.** The template-disjoint split proves
 generalisation to unseen *phrasings*, but not to unseen *domains* or genuinely
@@ -44,7 +51,7 @@ over-forwarding. No per-user adaptation exists yet.
    UNCERTAIN band first; retrain. Biggest accuracy win, no architecture change.
 2. **Context-aware features done properly** — train the classifier on
    (previous-turn, current-turn) pairs so context helps instead of
-   contaminating; targets failure modes 1 and 3.
+   contaminating; targets the remaining part of failure mode 1 (see item 8).
 3. **Downstream feedback channel** — let the intelligence layer mark moments as
    handled; extend duplicate suppression to "already-handled" suppression.
 4. **Kotlin port + on-device benchmark** — ~200-line reimplementation
@@ -58,3 +65,13 @@ over-forwarding. No per-user adaptation exists yet.
    implicit feedback (dismissed vs engaged downstream results).
 7. **Hinglish expansion** — extend templates + vocabulary, verify char n-grams
    carry over, then collect real code-mixed pilot data.
+8. **Vague/referent-free risk coverage** — the hedge-aware training
+   augmentation (`notebooks/01_data_generation.ipynb` §4b) fixed the
+   hedged-negation failure mode but exposed a related gap: vague risk lines
+   with no concrete hazard noun ("that might be a problem later") aren't well
+   covered by either the base templates (all use concrete hazards: "the stove
+   is on", "the wire is sparking") or the augmentation (a dedicated category
+   was tried and made this specific case worse — see the notebook cell).
+   Properly fixing this likely needs real examples of this pattern rather
+   than more synthetic guessing, i.e. it's a good candidate for item 1's
+   active-learning loop once pilot data exists.

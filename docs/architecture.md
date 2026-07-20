@@ -57,7 +57,7 @@ forwarded vectors, and decision counters.
 ## 3. Why these components
 
 - **Char n-grams** absorb ASR spelling drift and code-mixed tokens without a tokenizer file.
-- **Logistic Regression over LinearSVC**: native `predict_proba` gives the calibrated scores the uncertainty band needs; measured slightly better on unseen templates anyway (0.733 vs 0.692 macro-F1).
+- **Logistic Regression over LinearSVC**: native `predict_proba` gives the calibrated scores the uncertainty band needs; measured slightly better on unseen templates anyway (0.722 vs 0.713 macro-F1).
 - **Asymmetric thresholds (0.40 / 0.60)**: a false reject destroys a moment forever; a false forward wastes pennies of compute. The grey band converts would-be coin-flips into an explicit `UNCERTAIN` signal — the behaviour the brief asks for.
 - **Duplicate memory on *forwarded* items only**: repeats of rejected chit-chat are harmless; repeats of forwarded moments spam downstream. Threshold 0.45 chosen from measurements: true restatements score ≥ 0.62 with this vectorizer, same-topic-but-different moments ≤ 0.18.
 - **Classify the utterance alone**: concatenating prior context into the model input was tried and *removed* — the vectorizer was trained on single utterances, and context words from a previous meaningful line contaminated short ordinary lines (measured on the scenario suite). Context-aware features are future work, done properly (train-time change, not serve-time hack).
