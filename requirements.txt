@@ -11,3 +11,4 @@ numpy>=1.26
 # training / notebooks
 pandas>=2.1
 jupyter
+notebook
