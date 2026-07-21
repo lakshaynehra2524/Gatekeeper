@@ -145,8 +145,8 @@ miss for an unsafe-direction one on a *specific scenario line*. It does not show
 regression in the aggregate safety metric — true-drop rate on the full held-out test
 set actually improved (0.14% → 0.00%, §1) — which suggests this is a narrow blind spot
 for genuinely referent-free risk phrasing ("that", "this", no concrete hazard noun)
-rather than a broad regression, but it is real and is carried forward explicitly in
-`docs/limitations_future_work.md` rather than left implicit.
+rather than a broad regression, but it is real and is disclosed here explicitly rather
+than left implicit.
 
 ## 4. Error-cost analysis
 

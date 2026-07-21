@@ -86,10 +86,8 @@ augmentation, and both error-cost directions: `docs/evaluation_report.md`.
   duplicate suppression, back-channel filter, session state), incremental
   simulator, FastAPI service, browser demo console, full evaluation with
   failure analysis.
-- **Conceptual only:** Android/Kotlin port (path detailed in
-  `docs/architecture.md` §5), real-data annotation loop
-  (`docs/data_strategy.md` §5), second-stage semantic re-scorer
-  (`docs/limitations_future_work.md`).
+- **Conceptual only:** Android/Kotlin port, real-data annotation loop
+  (`docs/data_strategy.md` §5), second-stage semantic re-scorer.
 - **External libraries/models:** scikit-learn, joblib, numpy, pandas, FastAPI,
   uvicorn (all permissive licenses: BSD-3/MIT/Apache-2.0). **No pre-trained
   models or external datasets were used** — the classifier is trained from
