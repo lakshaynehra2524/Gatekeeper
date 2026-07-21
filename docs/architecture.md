@@ -81,21 +81,3 @@ edge-gatekeeper/
 ├── frontend/               index.html · style.css · script.js (demo console)
 └── docs/                   this documentation set
 ```
-
-## 5. Edge deployment path (Android)
-
-The prototype serves over FastAPI purely for demonstration; the engine itself
-is a plain Python object with no server dependency. Porting options, in order
-of effort:
-
-1. **Direct reimplementation (~recommended).** A trained TF-IDF + LogReg model is just: two vocabulary hash maps with IDF weights, a coefficient matrix (6 × ~7k floats) and biases. Export them to a flat binary/JSON (< 1 MB) and reimplement transform + dot-product + softmax in ~200 lines of Kotlin. No runtime dependency at all; sub-millisecond on a phone.
-2. **ONNX.** `skl2onnx` converts the sklearn pipeline; run with ONNX Runtime Mobile (~5 MB AAR — runtime code, which the brief's 25 MB *model* limit does not count, but worth noting for APK size).
-3. **Chaquopy/embedded Python** — works but heavyweight; not recommended.
-
-The regex back-channel filter, threshold gate, duplicate cosine check and ring
-buffers are trivial to port (no ML dependencies).
-
-Battery/latency expectation: sparse dot products on <10 non-zero features per
-short utterance; measured 1–3 ms on a laptop core, comfortably real-time on a
-phone big core, negligible against the always-on STT cost that already exists
-in the product.
