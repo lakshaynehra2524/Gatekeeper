@@ -195,7 +195,6 @@ class GatekeeperEngine:
         return {
             "meta": meta,
             "model_assets_mb": round(size_bytes / 1024 / 1024, 3),
-            "size_limit_mb": 25,
             "thresholds": {
                 "forward": FORWARD_THRESHOLD,
                 "reject": REJECT_THRESHOLD,

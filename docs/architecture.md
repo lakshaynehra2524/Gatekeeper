@@ -57,7 +57,7 @@ forwarded vectors, and decision counters.
 ## 3. Why these components
 
 - **Char n-grams** absorb ASR spelling drift and code-mixed tokens without a tokenizer file.
-- **Logistic Regression over LinearSVC**: native `predict_proba` gives the calibrated scores the uncertainty band needs; measured slightly better on unseen templates anyway (0.733 vs 0.692 macro-F1).
+- **Logistic Regression over LinearSVC**: native `predict_proba` gives the calibrated scores the uncertainty band needs; measured slightly better on unseen templates anyway (0.722 vs 0.713 macro-F1).
 - **Asymmetric thresholds (0.40 / 0.60)**: a false reject destroys a moment forever; a false forward wastes pennies of compute. The grey band converts would-be coin-flips into an explicit `UNCERTAIN` signal — the behaviour the brief asks for.
 - **Duplicate memory on *forwarded* items only**: repeats of rejected chit-chat are harmless; repeats of forwarded moments spam downstream. Threshold 0.45 chosen from measurements: true restatements score ≥ 0.62 with this vectorizer, same-topic-but-different moments ≤ 0.18.
 - **Classify the utterance alone**: concatenating prior context into the model input was tried and *removed* — the vectorizer was trained on single utterances, and context words from a previous meaningful line contaminated short ordinary lines (measured on the scenario suite). Context-aware features are future work, done properly (train-time change, not serve-time hack).
@@ -81,21 +81,3 @@ edge-gatekeeper/
 ├── frontend/               index.html · style.css · script.js (demo console)
 └── docs/                   this documentation set
 ```
-
-## 5. Edge deployment path (Android)
-
-The prototype serves over FastAPI purely for demonstration; the engine itself
-is a plain Python object with no server dependency. Porting options, in order
-of effort:
-
-1. **Direct reimplementation (~recommended).** A trained TF-IDF + LogReg model is just: two vocabulary hash maps with IDF weights, a coefficient matrix (6 × ~7k floats) and biases. Export them to a flat binary/JSON (< 1 MB) and reimplement transform + dot-product + softmax in ~200 lines of Kotlin. No runtime dependency at all; sub-millisecond on a phone.
-2. **ONNX.** `skl2onnx` converts the sklearn pipeline; run with ONNX Runtime Mobile (~5 MB AAR — runtime code, which the brief's 25 MB *model* limit does not count, but worth noting for APK size).
-3. **Chaquopy/embedded Python** — works but heavyweight; not recommended.
-
-The regex back-channel filter, threshold gate, duplicate cosine check and ring
-buffers are trivial to port (no ML dependencies).
-
-Battery/latency expectation: sparse dot products on <10 non-zero features per
-short utterance; measured 1–3 ms on a laptop core, comfortably real-time on a
-phone big core, negligible against the always-on STT cost that already exists
-in the product.
