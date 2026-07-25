@@ -14,7 +14,7 @@ FRONTEND = ROOT / "frontend"
 app = FastAPI(
     title="Edge Gatekeeper",
     description="On-device gate that decides which conversational moments "
-                "deserve deeper processing. Model assets: ~0.3 MB (limit 25 MB).",
+                "deserve deeper processing. Model assets: ~0.3 MB .",
     version="1.0.0",
 )
 
@@ -42,7 +42,7 @@ def reset():
 
 @app.get("/api/model-info", tags=["gatekeeper"])
 def model_info():
-    """Model metadata, size vs the 25 MB limit, thresholds and session stats."""
+    """Model metadata, size , thresholds and session stats."""
     return engine.model_info()
 
 
