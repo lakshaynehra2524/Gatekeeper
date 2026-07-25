@@ -1,10 +1,10 @@
 # Edge Gatekeeper — Ambient Conversation Intelligence
 
-AI/ML internship assignment: a lightweight, **fully on-device ML gate** that
+A lightweight, **fully on-device ML gate** that
 watches incremental conversation transcripts and decides which moments deserve
-deeper (expensive) intelligence — within a **25 MB model budget**.
+deeper (expensive) intelligence .
 
-**This solution uses 0.34 MB of that budget** and decides each fragment in
+**This solution uses 0.34 MB** and decides each fragment in
 **1–3 ms on CPU**, with explicit uncertainty handling and duplicate
 suppression.
 
@@ -67,7 +67,7 @@ jupyter notebook   # run 01_data_generation.ipynb, then 02_model_training_and_co
 
 | metric | value |
 |---|---|
-| combined model assets | **0.340 MB** (limit: 25 MB) |
+| combined model assets | **0.340 MB** |
 | latency per fragment (laptop CPU) | **~1.4 ms** |
 | true-drop rate at deployed thresholds, template-unseen test set | **0.00%** |
 | false-reject rate, naive 0.5 cut | 0.21% |
