@@ -58,4 +58,10 @@ def run_eval():
     return run_all(GatekeeperEngine())
 
 
+# frontend 
+@app.get("/", include_in_schema=False)
+def index():
+    return FileResponse(FRONTEND / "index.html")
 
+
+app.mount("/static", StaticFiles(directory=FRONTEND), name="static")
