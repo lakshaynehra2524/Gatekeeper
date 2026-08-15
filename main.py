@@ -52,10 +52,7 @@ def scenarios():
     return load_scenarios()
 
 
-@app.get("/api/run-eval", tags=["simulation"])
-def run_eval():
-    """Replay every scenario on a fresh engine and score against expectations."""
-    return run_all(GatekeeperEngine())
+
 
 
 # frontend 
