@@ -52,48 +52,4 @@ def run_all(engine: GatekeeperEngine) -> dict:
     }
 
 
-# CLI demo 
-def _cli() -> None:
-    import argparse
 
-    parser = argparse.ArgumentParser(description="Edge Gatekeeper simulator")
-    parser.add_argument("--live", action="store_true",
-                        help="interactive mode: type utterances yourself")
-    parser.add_argument("--delay", type=float, default=0.4,
-                        help="seconds between replayed fragments")
-    args = parser.parse_args()
-
-    engine = GatekeeperEngine()
-    icons = {"FORWARD": "->", "REJECT": "x ", "UNCERTAIN": "??", "DUPLICATE": "= "}
-
-    if args.live:
-        print("Live mode — type an utterance (empty line to quit)\n")
-        while True:
-            try:
-                text = input("you: ").strip()
-            except (EOFError, KeyboardInterrupt):
-                break
-            if not text:
-                break
-            r = engine.evaluate(text)
-            print(f"  [{icons[r.decision]}] {r.decision:9s} label={r.label:9s} "
-                  f"p_meaningful={r.p_meaningful:.2f}  ({r.latency_ms:.1f} ms)")
-            print(f"       {r.reason}")
-        return
-
-    for scenario in load_scenarios():
-        print(f"\n=== {scenario['name']} — {scenario['description']}")
-        engine.reset()
-        for turn in scenario["turns"]:
-            time.sleep(args.delay)
-            r = engine.evaluate(turn["text"])
-            ok = "OK " if r.decision == turn["expected"] else "MISS"
-            print(f" [{icons[r.decision]}] {r.decision:9s} (want {turn['expected']:9s}) "
-                  f"{ok}  \"{turn['text']}\"  p={r.p_meaningful:.2f} "
-                  f"{r.latency_ms:.1f}ms")
-    report = run_all(GatekeeperEngine())
-    print(f"\nOverall: {report['correct']}/{report['total']} turns matched expectation")
-
-
-if __name__ == "__main__":
-    _cli()
