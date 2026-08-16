@@ -184,22 +184,4 @@ class GatekeeperEngine:
             self.recent_forwards.append((result.text, vec))
         self.stats[result.decision] += 1
 
-    # info
-    def model_info(self) -> dict:
-        import json
-        meta_path = MODELS_DIR / "model_meta.json"
-        meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
-        size_bytes = sum(
-            p.stat().st_size for p in MODELS_DIR.glob("*.joblib")
-        )
-        return {
-            "meta": meta,
-            "model_assets_mb": round(size_bytes / 1024 / 1024, 3),
-            "thresholds": {
-                "forward": FORWARD_THRESHOLD,
-                "reject": REJECT_THRESHOLD,
-                "duplicate_similarity": DUPLICATE_SIMILARITY,
-            },
-            "context_window": CONTEXT_WINDOW,
-            "stats": dict(self.stats),
-        }
+   
