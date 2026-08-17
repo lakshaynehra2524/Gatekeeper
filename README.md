@@ -78,4 +78,21 @@ jupyter notebook   # run 01_data_generation.ipynb, then 02_model_training_and_co
 Full analysis including remaining scenario failures, the hedge-aware training
 augmentation, and both error-cost directions: `docs/evaluation_report.md`.
 
+## Submission statement (per assignment §10)
 
+- **Implemented:** synthetic data pipeline (incl. a targeted hedge/vague-
+  referent training augmentation, `notebooks/01_data_generation.ipynb` §4b),
+  model comparison + training, gate engine (thresholds, uncertainty band,
+  duplicate suppression, back-channel filter, session state), incremental
+  simulator, FastAPI service, browser demo console, full evaluation with
+  failure analysis.
+- **Conceptual only:** Android/Kotlin port, real-data annotation loop
+  (`docs/data_strategy.md` §5), second-stage semantic re-scorer.
+- **External libraries/models:** scikit-learn, joblib, numpy, pandas, FastAPI,
+  uvicorn (all permissive licenses: BSD-3/MIT/Apache-2.0). **No pre-trained
+  models or external datasets were used** — the classifier is trained from
+  scratch on generated data; all data/label design is original work.
+- **Total combined model size:** 0.340 MB (see `models/model_size_report.txt`).
+- **Edge deployment:** pure-CPU sparse linear inference; port via direct
+  Kotlin reimplementation (<1 MB assets) or ONNX Runtime Mobile —
+  `docs/architecture.md` §5.
